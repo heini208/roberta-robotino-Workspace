@@ -9,7 +9,8 @@ digitalPub = rospy.Publisher('digital_inputs', Int8MultiArray, queue_size=10)
 
 
 def digitalReadingsCallback(data):
-    intArray = np.uint8(data.values)
+    intArray = Int8MultiArray()		
+    intArray.data = np.uint8(data.values)
     digitalPub.publish(intArray)
 
 def talker():

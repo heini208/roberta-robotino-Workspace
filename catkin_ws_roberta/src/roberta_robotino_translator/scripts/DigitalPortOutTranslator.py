@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import rospy
-import numpy as np
 from std_msgs.msg import Int8MultiArray
 from robotino_msgs.msg import DigitalReadings  # dieser Import
 
@@ -10,7 +9,7 @@ digitalPub = rospy.Publisher('set_digital_values', DigitalReadings, queue_size=1
 def BooleanArrayCallback(data):
     digitalReadings = DigitalReadings()
     digitalReadings.stamp = rospy.Time.now()
-    digitalReadings.values = data.data.astype(bool)
+    digitalReadings.values = list(map(bool,data.data))
     digitalPub.publish(digitalReadings)
 
 def listener():

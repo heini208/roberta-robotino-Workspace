@@ -8,7 +8,11 @@ from robotino_msgs.srv import ResetOdometry
 import rospy
 
 def resetOdometryRobotino(data):
-    rospy.ServiceProxy('reset_odometry', ResetOdometry)(data.data[0], data.data[1], data.data[2])
+    if len(data.data) < 3:
+        rospy.ServiceProxy('reset_odometry', ResetOdometry)(0, 0, 0)
+    else:	
+        rospy.ServiceProxy('reset_odometry', ResetOdometry)(data.data[0], data.data[1], data.data[2])
+
 
 def resetOdometryTranslator():
     rospy.init_node('odometry_reset_node')
